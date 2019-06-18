@@ -19,7 +19,7 @@ class Profile {
             name: { firstName, lastName },
             password,
         }, (err, data) => {
-            console.log(`Enter your login ${username} , enter your first name ${firstName} , enter your last name ${lastName} , enter your password ${password}`);
+            console.log(`The user ${username} was successfully created: first name ${firstName} , last name ${lastName} , password ${password}`);
             callback(err, data);
         });
 
@@ -27,7 +27,7 @@ class Profile {
 
     performLogin({ username, password }, callback) {
         return ApiConnector.performLogin({ username, password }, (err, data) => {
-            console.log(`Enter your login ${username}, enter your password ${password}`);
+            console.log(`Authorizing the user: login ${username}, password ${password}`);
             callback(err, data);
         });
 
@@ -61,10 +61,9 @@ class Profile {
 
 function getCurrencyExchange(callback) {
     return ApiConnector.getStocks((err, data) => {
+        let arrayElement = data.pop();
+        console.log(arrayElement);
         callback(err, data);
-        let arr = [];
-        arr.push( {EUR_NETCOIN, NETCOIN_EUR, NETCOIN_RUB, NETCOIN_USD, RUB_NETCOIN, USD_NETCOIN} );
-        return arr;
     });
 
 }
