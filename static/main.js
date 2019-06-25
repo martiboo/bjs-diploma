@@ -1,5 +1,5 @@
 class Profile {
-    constructor({username, name, password}) {
+    constructor({ username, name, password }) {
         this.username = username;
         this.firstName = name.firstName;
         this.lastName = name.lastName;
@@ -70,57 +70,54 @@ function getCurrencyExchange(callback) {
 
 function main() {
     const Ivan = new Profile({
-                    username: 'ivan',
-                    name: { firstName: 'Ivan', lastName: 'Chernyshev' },
-                    password: 'ivanspass',
-                });
+        username: 'ivan',
+        name: { firstName: 'Ivan', lastName: 'Chernyshev' },
+        password: 'ivanspass',
+    });
     const Anna = new Profile({
-                    username: 'anna',
-                    name: { firstName: 'Anna', lastName: 'Petrova' },
-                    password: 'petrova1',
-                });
+        username: 'anna',
+        name: { firstName: 'Anna', lastName: 'Petrova' },
+        password: 'petrova1',
+    });
 
-    Ivan.createUser({ username: 'ivan', name: { firstName: 'Ivan', lastName: 'Chernyshev' }, password: 'ivanspass',}, (err, data) => {
+    Ivan.createUser({ username: 'ivan', name: { firstName: 'Ivan', lastName: 'Chernyshev' }, password: 'ivanspass', }, (err, data) => {
+        console.log(err);
         if (err) {
-                console.error('Error during creating user ivan');
+            console.log('Error during creating user ivan');
         } else {
-                console.log(`Creating user ivan`);
-        }});
-
-    Ivan.performLogin({ username: 'ivan', password: 'ivanspass' }, (err, data) => {
-        if (err) {
-                console.error('Error during creating user ivan');
-        } else {
-                console.log(`Authorizing user ivan`);
-        }});
-
-    Ivan.addMoney({ currency: 'RUB', amount: 100 }, (err, data) => {
-        if (err) {
-                console.error('Error during adding money to Ivan');
-        } else {
-                console.log(`Added 100 RUB to Ivan`);
-        }});
-
-    convertMoney({ fromCurrency: 'RUB', targetCurrency: 'NETCOIN', targetAmount: '100' }, (err, data) => {
-        if (err) {
-                console.error('Error during converting money');
-        } else {
-                console.log(`Convert 100 RUB to NETCOIN`);
-        }});
-
-    Anna.createUser({ username: 'anna', name: { firstName: 'Anna', lastName: 'Petrova' }, password: 'petrova1',}, (err, data) => {
-        if (err) {
-                console.error('Error during creating user anna');
-        } else {
-                console.log(`Creating user anna`);
-        }});
-
-    transferMoney({ to: anna, amount: 50 }, (err, data) => {
-        if (err) {
-                console.error('Error during transferring money');
-        } else {
-                console.log(`Transferring 50 to anna`);
-        }});
+            Ivan.performLogin({ username: 'ivan', password: 'ivanspass' }, (err, data) => {
+                if (err) {
+                    console.log('Error during authorizing user ivan');
+                } else {
+                    Ivan.addMoney({ currency: 'RUB', amount: 100 }, (err, data) => {
+                        if (err) {
+                            console.log('Error during adding money to Ivan');
+                        } else {
+                            convertMoney({ fromCurrency: 'RUB', targetCurrency: 'NETCOIN', targetAmount: '100' }, (err, data) => {
+                                if (err) {
+                                    console.log('Error during converting money');
+                                } else {
+                                    Anna.createUser({ username: 'anna', name: { firstName: 'Anna', lastName: 'Petrova' }, password: 'petrova1', }, (err, data) => {
+                                        if (err) {
+                                            console.log('Error during creating user anna');
+                                        } else {
+                                            transferMoney({ to: anna, amount: 50 }, (err, data) => {
+                                                if (err) {
+                                                    console.log('Error during transferring money');
+                                                } else {
+                                                    console.log(`Transferring 50 to anna`);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
 }
 
 main();
